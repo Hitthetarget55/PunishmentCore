@@ -9,6 +9,11 @@ presets:
     reason: "Kill Aura"
     duration: "1d" # Supports any token in any combination
     type: "ban" # Supports "ban", "kick", "mute" and "ipban". If invalid, will default to ban
+    message:
+      type: "public"
+      public: "&b%target% &ahas been %type% by &b%staff% &bfor &a%reason"
+      silent: "&b%target% &ahas been &esilently &a%type% by &b%staff% &bfor &a%reason"
+
     lore:
       - "hacking"
       - "smh"
