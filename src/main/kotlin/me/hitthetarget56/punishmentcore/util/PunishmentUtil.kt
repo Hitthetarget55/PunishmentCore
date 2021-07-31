@@ -2,10 +2,12 @@ package me.hitthetarget56.punishmentcore.util
 
 import me.hitthetarget56.punishmentcore.util.storage.PunishmentTable
 import me.hitthetarget56.punishmentcore.util.storage.PunishmentTable.target
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.util.*
 
 /**
  * PunishmentCore
@@ -69,7 +71,25 @@ fun Player.getHistory(): List<Punishment> {
     return toReturn.toList()
 }
 
-fun Player.isBanned(): Boolean {
+fun UUID.hasActiveBan(): Boolean {
+    val toReturn = mutableListOf<Punishment>()
+    transaction {
+        PunishmentTable.select { target eq this@hasActiveBan.toString() }.forEach {
+            toReturn.add(Punishment(
+                it[PunishmentTable.id],
+                it[PunishmentTable.target],
+                it[PunishmentTable.mod],
+                it[PunishmentTable.reason],
+                it[PunishmentTable.expired],
+                it[PunishmentTable.addedOn],
+                it[PunishmentTable.type].convertIntToType()
+            ))
+        }
+    }
+    return toReturn.filter { !it.expired && it.type == PunishmentType.BAN }.isNotEmpty()
+}
+
+fun Player.hasActiveBan(): Boolean {
     return this.getHistory().filter { !it.expired && it.type == PunishmentType.BAN }.isNotEmpty()
 }
 
