@@ -71,6 +71,17 @@ fun Player.getHistory(): List<Punishment> {
     return toReturn.toList()
 }
 
+fun String.toPunishmentType(): PunishmentType {
+    return when(this){
+        "ban" -> PunishmentType.BAN
+        "mute" -> PunishmentType.MUTE
+        "kick" -> PunishmentType.KICK
+        "ipban" -> PunishmentType.IPBAN
+        else -> PunishmentType.BAN
+    }
+}
+
+
 fun UUID.hasActiveBan(): Boolean {
     val toReturn = mutableListOf<Punishment>()
     transaction {
