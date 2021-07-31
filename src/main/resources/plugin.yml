@@ -1,0 +1,11 @@
+name: PunishmentCore
+version: ${project.version}
+main: me.hitthetarget56.punishmentcore.PunishmentCore
+api-version: 1.16
+authors: [Hitthetarget56, ignJosh]
+description: Punishment Plugin
+libraries:
+  - org.jetbrains.exposed:exposed-core:0.32.1
+  - org.jetbrains.exposed:exposed-jdbc:0.32.1
+  - org.jetbrains.kotlin:kotlin-stdlib:1.5.21
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21
